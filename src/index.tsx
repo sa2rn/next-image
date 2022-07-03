@@ -24,7 +24,6 @@ const {
   experimentalUnoptimized,
 } = (process.env.__NEXT_IMAGE_OPTS as any) || {}
 const configEnv = process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete
-const loadedImageURLs = new Set<string>()
 const allImgs = new Map<
   string,
   { src: string; priority: boolean; placeholder: string }
@@ -322,7 +321,6 @@ function handleLoading(
       // - decode() completes
       return
     }
-    loadedImageURLs.add(src)
     if (placeholder === 'blur') {
       setBlurComplete(true)
     }
@@ -458,13 +456,6 @@ export default function Image({
   if (src.startsWith('data:') || src.startsWith('blob:')) {
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
     unoptimized = true
-    isLazy = false
-  }
-  if (
-    typeof window !== 'undefined' &&
-    loadedImageURLs.has(src) &&
-    layout !== 'raw'
-  ) {
     isLazy = false
   }
   if (experimentalUnoptimized) {
