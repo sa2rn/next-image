@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "esnext",
+    "target": "ES2017",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "outDir": "dist",
+    "declaration": true
+  },
+  "exclude": ["dist", "./*.d.ts", "image-types/global.d.ts"]
+}
